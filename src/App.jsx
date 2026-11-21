@@ -3,7 +3,8 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Navigate
+  Navigate,
+  useLocation
 } from 'react-router-dom'
 
 import { useEffect, useState } from 'react'
@@ -15,6 +16,7 @@ import Hero from './components/Hero'
 import Categories from './components/Categories'
 import Products from './components/Products'
 import CompareBar from './components/CompareBar'
+import Footer from './components/Footer'
 
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
@@ -123,11 +125,15 @@ function ProtectedAdminRoute({ children }) {
   return children
 }
 
-// Main App
-function App() {
-  return (
-    <BrowserRouter>
+// Application Layout
+function AppContent() {
+  const location = useLocation()
 
+  // Hide the customer footer on admin pages
+  const isAdminRoute = location.pathname.startsWith('/admin')
+
+  return (
+    <>
       <Navbar />
 
       {/* Floating comparison bar */}
@@ -221,6 +227,17 @@ function App() {
 
       </Routes>
 
+      {/* Customer Website Footer */}
+      {!isAdminRoute && <Footer />}
+    </>
+  )
+}
+
+// Main App
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   )
 }
