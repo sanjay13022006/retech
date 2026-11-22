@@ -6,9 +6,9 @@ import {
   ShoppingBag,
   Heart,
   Menu,
-  UserRound,
   X,
-  Package
+  Package,
+  ShieldCheck
 } from 'lucide-react'
 
 import { Link } from 'react-router-dom'
@@ -63,6 +63,15 @@ export default function Navbar() {
             Why ReTech
           </Link>
 
+          {/* Admin Login */}
+          <Link
+            to="/admin/login"
+            className="hover:text-purple-600 transition flex items-center gap-1.5"
+          >
+            <ShieldCheck size={17} />
+            Admin Login
+          </Link>
+
           {/* Track Order */}
           <Link
             to="/track-order"
@@ -92,14 +101,6 @@ export default function Navbar() {
             className="hidden sm:block text-gray-700 hover:text-purple-600 transition"
           >
             <Heart size={21} />
-          </button>
-
-          {/* Account */}
-          <button
-            aria-label="Account"
-            className="hidden sm:block text-gray-700 hover:text-purple-600 transition"
-          >
-            <UserRound size={21} />
           </button>
 
           {/* Shopping Cart */}
@@ -164,6 +165,16 @@ export default function Navbar() {
             className="block text-gray-700 font-semibold hover:text-purple-600"
           >
             Why ReTech
+          </Link>
+
+          {/* Admin Login */}
+          <Link
+            to="/admin/login"
+            onClick={() => setMenuOpen(false)}
+            className="flex items-center gap-2 text-gray-700 font-semibold hover:text-purple-600"
+          >
+            <ShieldCheck size={19} />
+            Admin Login
           </Link>
 
           {/* Track Order */}
