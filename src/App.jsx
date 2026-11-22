@@ -29,8 +29,14 @@ import AdminLogin from './pages/AdminLogin'
 import AdminHealthReports from './pages/AdminHealthReports'
 import AdminInventory from './pages/AdminInventory'
 
-// Supabase Admin User ID
-const ADMIN_UID = '2b1c868a-2af0-4b4a-a5b5-c22794195215'
+// ==========================================
+// AUTHORIZED ADMIN USER IDs
+// ==========================================
+
+const ADMIN_UIDS = [
+  '2b1c868a-2af0-4b4a-a5b5-c22794195215',
+  'af13f67f-b928-4abc-916f-ef123f901266'
+]
 
 // Homepage
 function Home() {
@@ -43,7 +49,10 @@ function Home() {
   )
 }
 
-// Protected Admin Route
+// ==========================================
+// PROTECTED ADMIN ROUTE
+// ==========================================
+
 function ProtectedAdminRoute({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -64,7 +73,7 @@ function ProtectedAdminRoute({ children }) {
 
         if (!mounted) return
 
-        if (session?.user?.id === ADMIN_UID) {
+        if (ADMIN_UIDS.includes(session?.user?.id)) {
           setUser(session.user)
         } else {
           setUser(null)
@@ -96,7 +105,7 @@ function ProtectedAdminRoute({ children }) {
       (_event, session) => {
         if (!mounted) return
 
-        if (session?.user?.id === ADMIN_UID) {
+        if (ADMIN_UIDS.includes(session?.user?.id)) {
           setUser(session.user)
         } else {
           setUser(null)
@@ -125,11 +134,14 @@ function ProtectedAdminRoute({ children }) {
   return children
 }
 
-// Application Layout
+// ==========================================
+// APPLICATION LAYOUT
+// ==========================================
+
 function AppContent() {
   const location = useLocation()
 
-  // Hide the customer footer on admin pages
+  // Hide customer footer on admin pages
   const isAdminRoute = location.pathname.startsWith('/admin')
 
   return (
@@ -233,7 +245,10 @@ function AppContent() {
   )
 }
 
-// Main App
+// ==========================================
+// MAIN APP
+// ==========================================
+
 function App() {
   return (
     <BrowserRouter>
